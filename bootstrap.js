@@ -1,11 +1,6 @@
 (function () {
-  const currentScript = document.currentScript || (function () {
-    const scripts = document.getElementsByTagName('script');
-    return scripts[scripts.length - 1];
-  })();
-  const scriptSrc = (currentScript && currentScript.src) ? currentScript.src : '';
-  const ORIGIN = scriptSrc ? scriptSrc.split('/').slice(0,3).join('/') : window.location.origin;
-  const IFRAME_URL = ORIGIN + '/index.html'; // index.html must be at repo root
+  // Your live widget UI link from Cloudflare Pages
+  const IFRAME_URL = "https://chatbot-widget-ui.pages.dev/index.html";  
 
   const bubble = document.createElement("div");
   bubble.innerText = "💬";
@@ -33,15 +28,15 @@
 
   bubble.addEventListener("click", () => {
     iframe.style.display = iframe.style.display === "none" ? "block" : "none";
-    // notify iframe (optional)
-    iframe.contentWindow && iframe.contentWindow.postMessage({ type: iframe.style.display === "block" ? "open" : "close" }, ORIGIN);
+    iframe.contentWindow &&
+      iframe.contentWindow.postMessage(
+        { type: iframe.style.display === "block" ? "open" : "close" },
+        IFRAME_URL
+      );
   });
 
-  // forward messages safely
   window.addEventListener("message", (e) => {
-    // only accept messages from this site
-    if (!scriptSrc || e.origin !== ORIGIN) return;
-    // you can handle messages here if needed
+    if (e.origin !== new URL(IFRAME_URL).origin) return;
     console.log("Widget host received:", e.data);
   });
 })();
