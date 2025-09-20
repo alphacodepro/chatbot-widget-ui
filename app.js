@@ -17,7 +17,7 @@ sendBtn.addEventListener("click", async () => {
   input.value = "";
 
   try {
-    const res = await fetch("http://localhost:5000/message", {
+    const res = await fetch("https://chatbot-backend-1-ul5u.onrender.com/message", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: text }),
