@@ -430,3 +430,12 @@
 
 /* Utility */
 .hidden { display: none !important; }
+
+@media (max-width: 400px) {
+  #chat-container {
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 10px; /* or 0 for no rounding */
+  }
+}
+

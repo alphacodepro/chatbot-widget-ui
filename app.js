@@ -322,3 +322,13 @@ input.addEventListener("blur", () => {
 
 // Legacy parent notification
 window.parent.postMessage({ type: "ready" }, "*");
+
+// Permanent iframe fix: Adjust container style when in iframe
+if (window.self !== window.top) {
+  const chatContainer = document.getElementById('chat-container');
+  if (chatContainer) {
+    chatContainer.style.maxWidth = '100%';
+    chatContainer.style.margin = '0';
+    chatContainer.style.borderRadius = '10px'; // adjust as preferred
+  }
+}
