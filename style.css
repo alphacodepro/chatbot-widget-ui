@@ -36,19 +36,20 @@
   --shadow-medium: 0 4px 12px rgba(0,0,0,0.4);
 }
 
-/* General Container - MADE LARGER */
+/* General Container - Comfortable Sizing */
 #chat-container {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 480px; /* Increased from 420px */
-  height: 700px; /* Increased from 600px */
-  margin: 20px auto;
+  max-width: 440px;
+  min-height: 600px;
+  height: auto;
+  margin: 40px auto;
   background: var(--bg-primary);
   border-radius: 16px;
   overflow: hidden;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
   transition: all 0.3s ease;
 }
 
@@ -56,9 +57,9 @@
 #chat-header {
   background: var(--accent-color);
   color: white;
-  padding: 16px; /* Increased from 12px */
+  padding: 16px;
   text-align: center;
-  font-size: 18px; /* Increased from 16px */
+  font-size: 18px;
   font-weight: 500;
   position: relative;
   display: flex;
@@ -73,20 +74,20 @@
 }
 
 .bot-status {
-  font-size: 14px; /* Increased from 12px */
+  font-size: 14px;
   color: #e0e7ff;
 }
 
 .theme-toggle {
   position: absolute;
-  right: 16px; /* Increased from 12px */
+  right: 16px;
   background: rgba(255,255,255,0.2);
   border: none;
   border-radius: 8px;
   color: white;
-  padding: 8px 10px; /* Increased padding */
+  padding: 8px 10px;
   cursor: pointer;
-  font-size: 18px; /* Increased from 16px */
+  font-size: 18px;
   transition: all 0.2s ease;
 }
 
@@ -99,30 +100,32 @@
 .breadcrumb {
   background: var(--bg-secondary);
   color: var(--text-secondary);
-  padding: 10px 18px; /* Increased from 8px 16px */
-  font-size: 14px; /* Increased from 12px */
+  padding: 10px 18px;
+  font-size: 14px;
   border-bottom: 1px solid var(--border-color);
   font-weight: 500;
 }
 
-/* Messages Area */
+/* Messages Area - Flexible Height */
 #messages {
-  flex: 1;
-  padding: 20px; /* Increased from 16px */
+  flex: 1 1 0%;
+  padding: 16px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 16px; /* Increased from 12px */
+  gap: 12px;
   background: var(--bg-secondary);
   scroll-behavior: smooth;
+  min-height: 300px;
+  max-height: calc(100vh - 250px);
 }
 
 /* Message row with avatar + bubble */
 .row {
   display: flex;
   align-items: flex-end;
-  gap: 12px; /* Increased from 8px */
-  max-width: 85%; /* Decreased from 90% to give more space */
+  gap: 10px;
+  max-width: 85%;
   animation: slideInMessage 0.4s ease;
 }
 
@@ -136,14 +139,14 @@
 }
 
 .avatar {
-  width: 36px; /* Increased from 32px */
-  height: 36px; /* Increased from 32px */
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  flex: 0 0 36px; /* Updated to match new size */
+  flex: 0 0 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px; /* Increased from 18px */
+  font-size: 16px;
   color: #fff;
   box-shadow: var(--shadow-light);
   animation: avatarPulse 2s ease-in-out infinite;
@@ -165,11 +168,11 @@
 
 /* Message Bubbles */
 .message {
-  padding: 14px 18px; /* Increased from 12px 16px */
-  border-radius: 18px; /* Increased from 16px */
-  max-width: 80%; /* Increased from 75% */
-  font-size: 15px; /* Increased from 14px */
-  line-height: 1.5; /* Increased from 1.4 */
+  padding: 12px 16px;
+  border-radius: 16px;
+  max-width: 80%;
+  font-size: 14px;
+  line-height: 1.4;
   animation: fadeIn 0.3s ease;
   box-shadow: var(--shadow-light);
 }
@@ -193,10 +196,10 @@
 
 /* Refined bubble when inside .row */
 .row .bubble {
-  padding: 14px 18px; /* Increased from 12px 16px */
-  border-radius: 18px; /* Increased from 16px */
-  font-size: 15px; /* Increased from 14px */
-  line-height: 1.5; /* Increased from 1.4 */
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.4;
   box-shadow: var(--shadow-light);
   background: var(--bubble-bot);
   color: var(--text-primary);
@@ -213,8 +216,8 @@
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; /* Increased from 8px */
-  padding: 16px 0; /* Increased from 12px */
+  gap: 8px;
+  padding: 12px 0;
   margin: 0;
   background: transparent;
   border: none;
@@ -230,9 +233,9 @@
   border: 1px solid var(--chip-border);
   background: var(--chip-bg);
   color: var(--text-primary);
-  padding: 12px 18px; /* Increased from 10px 16px */
-  border-radius: 22px; /* Increased from 20px */
-  font-size: 14px; /* Increased from 13px */
+  padding: 10px 14px;
+  border-radius: 20px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -262,10 +265,10 @@
 /* Enhanced Input Area */
 .input-area {
   display: flex;
-  padding: 16px; /* Increased from 12px */
+  padding: 12px 16px;
   background: var(--bg-primary);
   border-top: 1px solid var(--border-color);
-  gap: 12px; /* Increased from 8px */
+  gap: 10px;
   align-items: flex-end;
 }
 
@@ -274,11 +277,11 @@
   border: 1px solid var(--border-light);
   border-radius: 12px;
   color: var(--text-secondary);
-  padding: 12px; /* Increased from 10px */
+  padding: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 18px; /* Increased from 16px */
-  min-height: 48px; /* Increased from 44px */
+  font-size: 16px;
+  min-height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -293,18 +296,18 @@
 #input {
   flex: 1;
   border: 1px solid var(--border-light);
-  border-radius: 20px;
-  padding: 14px 18px; /* Increased from 12px 16px */
+  border-radius: 18px;
+  padding: 12px 16px;
   outline: none;
-  font-size: 15px; /* Increased from 14px */
+  font-size: 14px;
   background: var(--bg-input);
   color: var(--text-primary);
-  transition: all 0.2s ease;
-  min-height: 24px; /* Increased from 20px */
-  max-height: 140px; /* Increased from 120px */
+  transition: border-color 0.2s ease;
+  min-height: 20px;
+  max-height: 100px;
   resize: none;
   font-family: inherit;
-  line-height: 1.5; /* Increased from 1.4 */
+  line-height: 1.4;
 }
 
 #input:focus {
@@ -320,14 +323,14 @@
   border: none;
   background: var(--accent-color);
   color: white;
-  padding: 14px; /* Increased from 12px */
+  padding: 12px;
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 16px; /* Increased from 14px */
+  font-size: 14px;
   font-weight: 500;
-  min-height: 48px; /* Increased from 44px */
-  min-width: 48px; /* Increased from 44px */
+  min-height: 40px;
+  min-width: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -351,11 +354,11 @@
 /* Enhanced Typing Indicator */
 .typing {
   display: flex;
-  gap: 10px; /* Increased from 8px */
-  margin: 12px 40px; /* Increased from 8px 36px */
+  gap: 8px;
+  margin: 8px 36px;
   align-items: center;
   color: var(--text-muted);
-  font-size: 13px; /* Increased from 12px */
+  font-size: 12px;
 }
 
 .typing-text {
@@ -363,8 +366,8 @@
 }
 
 .typing span.dot {
-  width: 7px; /* Increased from 6px */
-  height: 7px; /* Increased from 6px */
+  width: 6px;
+  height: 6px;
   background: var(--text-muted);
   border-radius: 50%;
   animation: blink 1.4s infinite ease-in-out both;
@@ -409,7 +412,8 @@
   #chat-container {
     width: 100%;
     max-width: 100%;
-    height: min(90vh, 700px); /* Increased height for mobile too */
+    min-height: 500px;
+    height: 90vh;
     margin: 0;
     border-radius: 0;
     padding-left: max(0px, env(safe-area-inset-left, 0px));
@@ -430,31 +434,32 @@
   }
 
   #messages {
-    padding: 16px;
-    gap: 14px;
+    padding: 12px;
+    gap: 10px;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
+    min-height: 200px;
   }
 
   .input-area {
     position: sticky;
     bottom: 0;
     z-index: 2;
-    padding: 12px;
-    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-    gap: 10px;
+    padding: 10px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    gap: 8px;
     background: var(--bg-primary);
     border-top: 1px solid var(--border-color);
   }
 
   .chips {
-    padding: 12px 0;
-    gap: 8px;
+    padding: 8px 0;
+    gap: 6px;
   }
 
   .chip {
-    padding: 10px 14px;
-    font-size: 13px;
+    padding: 8px 12px;
+    font-size: 12px;
   }
 }
 
