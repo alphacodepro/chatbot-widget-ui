@@ -327,8 +327,13 @@ window.parent.postMessage({ type: "ready" }, "*");
 if (window.self !== window.top) {
   const chatContainer = document.getElementById('chat-container');
   if (chatContainer) {
+    chatContainer.style.width = '100%';
     chatContainer.style.maxWidth = '100%';
     chatContainer.style.margin = '0';
     chatContainer.style.borderRadius = '10px'; // adjust as preferred
+    chatContainer.style.height = '100%';
   }
+  document.body.style.margin = '0';
+  document.body.style.padding = '0';
+  document.body.style.height = '100%';
 }
