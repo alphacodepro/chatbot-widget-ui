@@ -36,13 +36,13 @@
   --shadow-medium: 0 4px 12px rgba(0,0,0,0.4);
 }
 
-/* General Container */
+/* General Container - MADE LARGER */
 #chat-container {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 420px;
-  height: 600px;
+  max-width: 480px; /* Increased from 420px */
+  height: 700px; /* Increased from 600px */
   margin: 20px auto;
   background: var(--bg-primary);
   border-radius: 16px;
@@ -56,9 +56,9 @@
 #chat-header {
   background: var(--accent-color);
   color: white;
-  padding: 12px;
+  padding: 16px; /* Increased from 12px */
   text-align: center;
-  font-size: 16px;
+  font-size: 18px; /* Increased from 16px */
   font-weight: 500;
   position: relative;
   display: flex;
@@ -73,20 +73,20 @@
 }
 
 .bot-status {
-  font-size: 12px;
+  font-size: 14px; /* Increased from 12px */
   color: #e0e7ff;
 }
 
 .theme-toggle {
   position: absolute;
-  right: 12px;
+  right: 16px; /* Increased from 12px */
   background: rgba(255,255,255,0.2);
   border: none;
   border-radius: 8px;
   color: white;
-  padding: 6px 8px;
+  padding: 8px 10px; /* Increased padding */
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px; /* Increased from 16px */
   transition: all 0.2s ease;
 }
 
@@ -99,8 +99,8 @@
 .breadcrumb {
   background: var(--bg-secondary);
   color: var(--text-secondary);
-  padding: 8px 16px;
-  font-size: 12px;
+  padding: 10px 18px; /* Increased from 8px 16px */
+  font-size: 14px; /* Increased from 12px */
   border-bottom: 1px solid var(--border-color);
   font-weight: 500;
 }
@@ -108,11 +108,11 @@
 /* Messages Area */
 #messages {
   flex: 1;
-  padding: 16px;
+  padding: 20px; /* Increased from 16px */
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px; /* Increased from 12px */
   background: var(--bg-secondary);
   scroll-behavior: smooth;
 }
@@ -121,8 +121,8 @@
 .row {
   display: flex;
   align-items: flex-end;
-  gap: 8px;
-  max-width: 90%;
+  gap: 12px; /* Increased from 8px */
+  max-width: 85%; /* Decreased from 90% to give more space */
   animation: slideInMessage 0.4s ease;
 }
 
@@ -136,14 +136,14 @@
 }
 
 .avatar {
-  width: 32px;
-  height: 32px;
+  width: 36px; /* Increased from 32px */
+  height: 36px; /* Increased from 32px */
   border-radius: 50%;
-  flex: 0 0 32px;
+  flex: 0 0 36px; /* Updated to match new size */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 20px; /* Increased from 18px */
   color: #fff;
   box-shadow: var(--shadow-light);
   animation: avatarPulse 2s ease-in-out infinite;
@@ -165,11 +165,11 @@
 
 /* Message Bubbles */
 .message {
-  padding: 12px 16px;
-  border-radius: 16px;
-  max-width: 75%;
-  font-size: 14px;
-  line-height: 1.4;
+  padding: 14px 18px; /* Increased from 12px 16px */
+  border-radius: 18px; /* Increased from 16px */
+  max-width: 80%; /* Increased from 75% */
+  font-size: 15px; /* Increased from 14px */
+  line-height: 1.5; /* Increased from 1.4 */
   animation: fadeIn 0.3s ease;
   box-shadow: var(--shadow-light);
 }
@@ -193,10 +193,10 @@
 
 /* Refined bubble when inside .row */
 .row .bubble {
-  padding: 12px 16px;
-  border-radius: 16px;
-  font-size: 14px;
-  line-height: 1.4;
+  padding: 14px 18px; /* Increased from 12px 16px */
+  border-radius: 18px; /* Increased from 16px */
+  font-size: 15px; /* Increased from 14px */
+  line-height: 1.5; /* Increased from 1.4 */
   box-shadow: var(--shadow-light);
   background: var(--bubble-bot);
   color: var(--text-primary);
@@ -213,8 +213,8 @@
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  padding: 12px 0;
+  gap: 10px; /* Increased from 8px */
+  padding: 16px 0; /* Increased from 12px */
   margin: 0;
   background: transparent;
   border: none;
@@ -230,9 +230,9 @@
   border: 1px solid var(--chip-border);
   background: var(--chip-bg);
   color: var(--text-primary);
-  padding: 10px 16px;
-  border-radius: 20px;
-  font-size: 13px;
+  padding: 12px 18px; /* Increased from 10px 16px */
+  border-radius: 22px; /* Increased from 20px */
+  font-size: 14px; /* Increased from 13px */
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -262,10 +262,10 @@
 /* Enhanced Input Area */
 .input-area {
   display: flex;
-  padding: 12px;
+  padding: 16px; /* Increased from 12px */
   background: var(--bg-primary);
   border-top: 1px solid var(--border-color);
-  gap: 8px;
+  gap: 12px; /* Increased from 8px */
   align-items: flex-end;
 }
 
@@ -274,11 +274,11 @@
   border: 1px solid var(--border-light);
   border-radius: 12px;
   color: var(--text-secondary);
-  padding: 10px;
+  padding: 12px; /* Increased from 10px */
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 16px;
-  min-height: 44px;
+  font-size: 18px; /* Increased from 16px */
+  min-height: 48px; /* Increased from 44px */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -294,17 +294,17 @@
   flex: 1;
   border: 1px solid var(--border-light);
   border-radius: 20px;
-  padding: 12px 16px;
+  padding: 14px 18px; /* Increased from 12px 16px */
   outline: none;
-  font-size: 14px;
+  font-size: 15px; /* Increased from 14px */
   background: var(--bg-input);
   color: var(--text-primary);
   transition: all 0.2s ease;
-  min-height: 20px;
-  max-height: 120px;
+  min-height: 24px; /* Increased from 20px */
+  max-height: 140px; /* Increased from 120px */
   resize: none;
   font-family: inherit;
-  line-height: 1.4;
+  line-height: 1.5; /* Increased from 1.4 */
 }
 
 #input:focus {
@@ -320,14 +320,14 @@
   border: none;
   background: var(--accent-color);
   color: white;
-  padding: 12px;
+  padding: 14px; /* Increased from 12px */
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 14px;
+  font-size: 16px; /* Increased from 14px */
   font-weight: 500;
-  min-height: 44px;
-  min-width: 44px;
+  min-height: 48px; /* Increased from 44px */
+  min-width: 48px; /* Increased from 44px */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -351,11 +351,11 @@
 /* Enhanced Typing Indicator */
 .typing {
   display: flex;
-  gap: 8px;
-  margin: 8px 36px;
+  gap: 10px; /* Increased from 8px */
+  margin: 12px 40px; /* Increased from 8px 36px */
   align-items: center;
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 13px; /* Increased from 12px */
 }
 
 .typing-text {
@@ -363,8 +363,8 @@
 }
 
 .typing span.dot {
-  width: 6px;
-  height: 6px;
+  width: 7px; /* Increased from 6px */
+  height: 7px; /* Increased from 6px */
   background: var(--text-muted);
   border-radius: 50%;
   animation: blink 1.4s infinite ease-in-out both;
@@ -409,7 +409,7 @@
   #chat-container {
     width: 100%;
     max-width: 100%;
-    height: min(88dvh, 600px);
+    height: min(90vh, 700px); /* Increased height for mobile too */
     margin: 0;
     border-radius: 0;
     padding-left: max(0px, env(safe-area-inset-left, 0px));
@@ -420,18 +420,18 @@
     position: sticky;
     top: 0;
     z-index: 2;
-    padding: 10px;
-    font-size: 15px;
+    padding: 12px;
+    font-size: 16px;
   }
 
   .breadcrumb {
-    padding: 6px 12px;
-    font-size: 11px;
+    padding: 8px 14px;
+    font-size: 12px;
   }
 
   #messages {
-    padding: 12px;
-    gap: 10px;
+    padding: 16px;
+    gap: 14px;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
   }
@@ -440,21 +440,21 @@
     position: sticky;
     bottom: 0;
     z-index: 2;
-    padding: 10px;
-    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
-    gap: 8px;
+    padding: 12px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    gap: 10px;
     background: var(--bg-primary);
     border-top: 1px solid var(--border-color);
   }
 
   .chips {
-    padding: 8px 0;
-    gap: 6px;
+    padding: 12px 0;
+    gap: 8px;
   }
 
   .chip {
-    padding: 8px 12px;
-    font-size: 12px;
+    padding: 10px 14px;
+    font-size: 13px;
   }
 }
 
