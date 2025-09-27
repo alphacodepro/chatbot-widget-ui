@@ -422,16 +422,16 @@ body:not(.widget-embedded) #chat-container {
 
 /* Mobile responsiveness - Enhanced for widget */
 
-/* Small mobile phones (up to 360px) */
 @media (max-width: 360px) {
-  #chat-container {
-    width: 100%;
-    max-width: 100%;
-    height: 100vh;
-    margin: 0;
-    border-radius: 0;
-    padding-left: max(0px, env(safe-area-inset-left, 0px));
-    padding-right: max(0px, env(safe-area-inset-right, 0px));
+  body:not(.widget-embedded) #chat-container {
+    width: 95%;
+    max-width: 95%;
+    height: 85vh;
+    margin: 7.5vh auto 7.5vh auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    padding-left: max(8px, env(safe-area-inset-left, 8px));
+    padding-right: max(8px, env(safe-area-inset-right, 8px));
   }
 
   #chat-header {
@@ -499,16 +499,17 @@ body:not(.widget-embedded) #chat-container {
   }
 }
 
-/* Standard mobile phones (361px - 480px) */
+/* Standard mobile phones (361px - 480px) - Only apply to non-embedded mode */
 @media (min-width: 361px) and (max-width: 480px) {
-  #chat-container {
-    width: 100%;
-    max-width: 100%;
-    height: 100vh;
-    margin: 0;
-    border-radius: 0;
-    padding-left: max(0px, env(safe-area-inset-left, 0px));
-    padding-right: max(0px, env(safe-area-inset-right, 0px));
+  body:not(.widget-embedded) #chat-container {
+    width: 90%;
+    max-width: 90%;
+    height: 80vh;
+    margin: 10vh auto 10vh auto;
+    border-radius: 18px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    padding-left: max(12px, env(safe-area-inset-left, 12px));
+    padding-right: max(12px, env(safe-area-inset-right, 12px));
   }
 
   #chat-header {
@@ -562,14 +563,15 @@ body:not(.widget-embedded) #chat-container {
   }
 }
 
-/* Large mobile phones and small tablets (481px - 768px) */
+/* Large mobile phones and small tablets (481px - 768px) - Only apply to non-embedded mode */
 @media (min-width: 481px) and (max-width: 768px) {
-  #chat-container {
-    width: 100%;
-    max-width: 500px;
-    height: 90vh;
-    margin: 5vh auto;
-    border-radius: 12px;
+  body:not(.widget-embedded) #chat-container {
+    width: 85%;
+    max-width: 420px;
+    height: 75vh;
+    margin: 12.5vh auto;
+    border-radius: 20px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
   }
 
   .chip {
@@ -644,6 +646,15 @@ body:not(.widget-embedded) #chat-container {
   transform: translateZ(0);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  /* Override mobile styles when embedded - fill the iframe completely */
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
 }
 
 /* Accessibility */

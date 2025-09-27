@@ -94,9 +94,16 @@ function addMessage(role, text, animate = true) {
   // Immediate scroll for messages, then smooth scroll
   requestAnimationFrame(() => scrollToBottom());
 
-  // Legacy behavior for parent listeners
-  if (role === "bot") {
-    window.parent?.postMessage({ type: "new-message", payload: text }, "*");
+  // Secure message to parent with origin validation
+  if (role === "bot" && window.self !== window.top) {
+    try {
+      const parentOrigin = document.referrer ? new URL(document.referrer).origin : null;
+      if (parentOrigin) {
+        window.parent?.postMessage({ type: "new-message", payload: text }, parentOrigin);
+      }
+    } catch (e) {
+      // Ignore postMessage errors for security
+    }
   }
 }
 
@@ -335,12 +342,25 @@ input.addEventListener("blur", () => {
   setTimeout(() => input.focus(), 100);
 });
 
-// Legacy parent notification
-window.parent.postMessage({ type: "ready" }, "*");
+// Secure parent notification with origin validation
+if (window.self !== window.top) {
+  try {
+    const parentOrigin = document.referrer ? new URL(document.referrer).origin : null;
+    if (parentOrigin) {
+      window.parent.postMessage({ type: "ready" }, parentOrigin);
+    }
+  } catch (e) {
+    // Ignore postMessage errors for security
+  }
+}
 
 // Enhanced iframe detection and styling fix
 function setupEmbeddedMode() {
-  if (window.self !== window.top) {
+  // Check for both iframe context and URL embed parameter
+  const isInIframe = window.self !== window.top;
+  const hasEmbedParam = new URLSearchParams(window.location.search).has('embed');
+  
+  if (isInIframe || hasEmbedParam) {
     // Mark body as embedded for CSS targeting
     document.body.classList.add('widget-embedded');
     
@@ -358,7 +378,7 @@ function setupEmbeddedMode() {
       chatContainer.style.width = '100%';
       chatContainer.style.maxWidth = '100%';
       chatContainer.style.margin = '0';
-      chatContainer.style.borderRadius = '10px';
+      chatContainer.style.borderRadius = '0';
       chatContainer.style.height = '100%';
       chatContainer.style.boxSizing = 'border-box';
     }

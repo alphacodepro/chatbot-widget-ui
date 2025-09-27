@@ -1,6 +1,6 @@
 (function () {
-  // Your live widget UI link from Cloudflare Pages
-  const IFRAME_URL = "https://chatbot-widget-ui.pages.dev/index.html";  
+  // Your live widget UI link from Cloudflare Pages with embed parameter
+  const IFRAME_URL = "https://chatbot-widget-ui.pages.dev/index.html?embed=1";  
 
   // Mobile detection function
   function isMobile() {
@@ -15,22 +15,25 @@
     
     if (mobile) {
       if (screenWidth <= 360) {
-        // Small phones
+        // Small phones - widget overlay style
         return {
           bubble: { size: 50, bottom: 15, right: 15 },
-          iframe: { width: screenWidth - 20, height: screenHeight - 100, bottom: 75, right: 10 }
+          iframe: { width: Math.floor(screenWidth * 0.95), height: Math.floor(screenHeight * 0.85), bottom: Math.floor(screenHeight * 0.075), right: Math.floor(screenWidth * 0.025) }
         };
       } else if (screenWidth <= 480) {
-        // Standard mobile
+        // Standard mobile - widget overlay style
         return {
           bubble: { size: 55, bottom: 18, right: 18 },
-          iframe: { width: screenWidth - 30, height: screenHeight - 120, bottom: 85, right: 15 }
+          iframe: { width: Math.floor(screenWidth * 0.90), height: Math.floor(screenHeight * 0.80), bottom: Math.floor(screenHeight * 0.10), right: Math.floor(screenWidth * 0.05) }
         };
       } else {
-        // Large mobile/small tablet
+        // Large mobile/small tablet - widget overlay style (consistent bottom-right positioning)
+        const width = Math.min(420, Math.floor(screenWidth * 0.85));
+        const height = Math.floor(screenHeight * 0.75);
+        const rightMargin = Math.floor(screenWidth * 0.075); // 7.5% margin from right
         return {
           bubble: { size: 60, bottom: 20, right: 20 },
-          iframe: { width: Math.min(400, screenWidth - 40), height: Math.min(600, screenHeight - 140), bottom: 90, right: 20 }
+          iframe: { width, height, bottom: Math.floor(screenHeight * 0.125), right: rightMargin }
         };
       }
     } else {
@@ -73,18 +76,23 @@
   
   function updateIframeStyles() {
     const dims = getResponsiveDimensions();
+    const mobile = isMobile();
+    const borderRadius = mobile ? '18px' : '10px';
+    const shadow = mobile ? '0 8px 32px rgba(0,0,0,0.3)' : '0 4px 20px rgba(0,0,0,0.3)';
+    
     iframe.style.cssText = `
       position: fixed; bottom: ${dims.iframe.bottom}px; right: ${dims.iframe.right}px;
       width: ${dims.iframe.width}px; height: ${dims.iframe.height}px;
-      border: none; border-radius: 10px;
+      border: none; border-radius: ${borderRadius};
       display: none; z-index: 999999;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      box-shadow: ${shadow};
       transition: opacity 0.3s ease, transform 0.3s ease;
     `;
   }
   
   updateIframeStyles();
   iframe.sandbox = "allow-scripts allow-forms allow-same-origin";
+  // The iframe will self-identify as embedded via the ?embed=1 parameter
   document.body.appendChild(iframe);
 
   // Enhanced interaction handlers
@@ -102,7 +110,7 @@
     if (!isVisible && iframe.contentWindow) {
       iframe.contentWindow.postMessage(
         { type: "open" },
-        IFRAME_URL
+        new URL(IFRAME_URL).origin
       );
     }
   }
