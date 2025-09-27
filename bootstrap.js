@@ -1,6 +1,6 @@
 (function () {
   // Your live widget UI link from Cloudflare Pages with embed parameter
-  const IFRAME_URL = "https://fb8653a6.chatbot-widget-ui.pages.dev";  
+  const IFRAME_URL = "https://c2c29cad.chatbot-widget-ui.pages.dev/bootstrap.js";  
 
   // Mobile detection function
   function isMobile() {
