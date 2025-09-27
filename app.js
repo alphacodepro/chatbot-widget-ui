@@ -91,7 +91,8 @@ function addMessage(role, text, animate = true) {
   }
 
   messagesDiv.appendChild(row);
-  scrollToBottom();
+  // Immediate scroll for messages, then smooth scroll
+  requestAnimationFrame(() => scrollToBottom());
 
   // Legacy behavior for parent listeners
   if (role === "bot") {
@@ -99,14 +100,25 @@ function addMessage(role, text, animate = true) {
   }
 }
 
-// Enhanced smooth scroll
-function scrollToBottom() {
-  setTimeout(() => {
-    messagesDiv.scrollTo({
-      top: messagesDiv.scrollHeight,
-      behavior: 'smooth'
+// Enhanced smooth scroll with better timing
+function scrollToBottom(forceImmediate = false) {
+  const doScroll = () => {
+    if (messagesDiv) {
+      messagesDiv.scrollTo({
+        top: messagesDiv.scrollHeight,
+        behavior: forceImmediate ? 'auto' : 'smooth'
+      });
+    }
+  };
+  
+  if (forceImmediate) {
+    doScroll();
+  } else {
+    // Use requestAnimationFrame for better timing
+    requestAnimationFrame(() => {
+      setTimeout(doScroll, 50);
     });
-  }, 100);
+  }
 }
 
 // Enhanced typing with custom message
@@ -194,7 +206,8 @@ function renderCategoryChips() {
   }, 300);
   
   messagesDiv.appendChild(chipsBlock);
-  scrollToBottom();
+  // Delayed scroll for chips to account for animations
+  setTimeout(() => scrollToBottom(), 150);
 }
 
 // Enhanced question chips with context-aware replies
@@ -225,7 +238,8 @@ function renderQuestionChips(category) {
   }, 200);
   
   messagesDiv.appendChild(chipsBlock);
-  scrollToBottom();
+  // Delayed scroll for chips to account for animations
+  setTimeout(() => scrollToBottom(), 150);
 }
 
 // Show context-aware follow-up replies
@@ -244,7 +258,8 @@ function showContextReplies(context) {
         }
       }, 100);
       messagesDiv.appendChild(chipsBlock);
-      scrollToBottom();
+      // Delayed scroll for context chips
+      setTimeout(() => scrollToBottom(), 200);
     }, 1000);
   }
 }
@@ -323,17 +338,33 @@ input.addEventListener("blur", () => {
 // Legacy parent notification
 window.parent.postMessage({ type: "ready" }, "*");
 
-// Permanent iframe fix: Adjust container style when in iframe
-if (window.self !== window.top) {
-  const chatContainer = document.getElementById('chat-container');
-  if (chatContainer) {
-    chatContainer.style.width = '100%';
-    chatContainer.style.maxWidth = '100%';
-    chatContainer.style.margin = '0';
-    chatContainer.style.borderRadius = '10px'; // adjust as preferred
-    chatContainer.style.height = '100%';
+// Enhanced iframe detection and styling fix
+function setupEmbeddedMode() {
+  if (window.self !== window.top) {
+    // Mark body as embedded for CSS targeting
+    document.body.classList.add('widget-embedded');
+    
+    // Remove all margins and padding
+    document.documentElement.style.margin = '0';
+    document.documentElement.style.padding = '0';
+    document.documentElement.style.height = '100%';
+    document.body.style.margin = '0';
+    document.body.style.padding = '0';
+    document.body.style.height = '100%';
+    document.body.style.overflow = 'hidden';
+    
+    const chatContainer = document.getElementById('chat-container');
+    if (chatContainer) {
+      chatContainer.style.width = '100%';
+      chatContainer.style.maxWidth = '100%';
+      chatContainer.style.margin = '0';
+      chatContainer.style.borderRadius = '10px';
+      chatContainer.style.height = '100%';
+      chatContainer.style.boxSizing = 'border-box';
+    }
   }
-  document.body.style.margin = '0';
-  document.body.style.padding = '0';
-  document.body.style.height = '100%';
 }
+
+// Run immediately and on DOM ready
+setupEmbeddedMode();
+document.addEventListener('DOMContentLoaded', setupEmbeddedMode);

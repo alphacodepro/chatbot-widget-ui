@@ -1,6 +1,6 @@
 (function () {
   // Your live widget UI link from Cloudflare Pages
-  const IFRAME_URL = "https://chatbot-widget-ui.pages.dev/index.html";  
+  const IFRAME_URL = "https://c2c29cad.chatbot-widget-ui.pages.dev/index.html";  
 
   const bubble = document.createElement("div");
   bubble.innerText = "💬";
