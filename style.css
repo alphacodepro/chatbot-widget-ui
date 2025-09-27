@@ -420,8 +420,87 @@ body:not(.widget-embedded) #chat-container {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Mobile responsiveness */
-@media (max-width: 480px) {
+/* Mobile responsiveness - Enhanced for widget */
+
+/* Small mobile phones (up to 360px) */
+@media (max-width: 360px) {
+  #chat-container {
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    margin: 0;
+    border-radius: 0;
+    padding-left: max(0px, env(safe-area-inset-left, 0px));
+    padding-right: max(0px, env(safe-area-inset-right, 0px));
+  }
+
+  #chat-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .bot-name {
+    font-size: 14px;
+  }
+
+  .bot-status {
+    font-size: 10px;
+  }
+
+  .breadcrumb {
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+
+  #messages {
+    padding: 8px;
+    gap: 8px;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .input-area {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    padding: 8px;
+    padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    gap: 6px;
+    background: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
+  }
+
+  .chips {
+    padding: 6px 0;
+    gap: 4px;
+  }
+
+  .chip {
+    padding: 6px 10px;
+    font-size: 11px;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .attachment-btn, #send {
+    min-width: 36px;
+    min-height: 36px;
+    padding: 8px;
+  }
+
+  #input {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+}
+
+/* Standard mobile phones (361px - 480px) */
+@media (min-width: 361px) and (max-width: 480px) {
   #chat-container {
     width: 100%;
     max-width: 100%;
@@ -471,7 +550,100 @@ body:not(.widget-embedded) #chat-container {
   .chip {
     padding: 8px 12px;
     font-size: 12px;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+
+  .attachment-btn, #send {
+    min-width: 40px;
+    min-height: 40px;
+  }
+}
+
+/* Large mobile phones and small tablets (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  #chat-container {
+    width: 100%;
+    max-width: 500px;
+    height: 90vh;
+    margin: 5vh auto;
+    border-radius: 12px;
+  }
+
+  .chip {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .attachment-btn, #send {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* Touch-friendly enhancements for all mobile devices */
+@media (max-width: 768px) {
+  /* Larger touch targets */
+  .chip, .attachment-btn, #send, .theme-toggle {
+    -webkit-tap-highlight-color: rgba(79, 70, 229, 0.2);
+    tap-highlight-color: rgba(79, 70, 229, 0.2);
+  }
+
+  /* Better spacing for touch */
+  .chips {
+    margin: 8px 20px 0 20px;
+  }
+
+  /* Prevent text selection on interactive elements */
+  .chip, .theme-toggle {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Smooth scroll for mobile */
+  #messages {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Better message bubbles for mobile */
+  .message {
+    max-width: 85%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Avatar adjustments for mobile */
+  .avatar {
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+    font-size: 14px;
+  }
+
+  /* Adjust row gap for mobile */
+  .row {
+    gap: 6px;
+  }
+}
+
+/* Mobile-specific widget embedded styles */
+.widget-embedded {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+.widget-embedded #chat-container {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* Accessibility */
@@ -480,6 +652,17 @@ body:not(.widget-embedded) #chat-container {
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  #chat-container {
+    border: 2px solid;
+  }
+  
+  .chip {
+    border-width: 2px;
   }
 }
 
