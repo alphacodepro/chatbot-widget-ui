@@ -1,43 +1,39 @@
 (function () {
-  // Your live widget UI link from Cloudflare Pages with embed parameter
-  const IFRAME_URL = "https://ba37bb1d.chatbot-widget-ui.pages.dev/";  
+  // Main Cloudflare Pages URL for v2 widget with cache-busting
+  const IFRAME_URL = "https://chatbot-widget-ui.pages.dev/?embed=1";
 
-  // Mobile detection function
+  // Mobile detection
   function isMobile() {
     return window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   }
 
-  // Get responsive dimensions
+  // Responsive dimensions
   function getResponsiveDimensions() {
     const mobile = isMobile();
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
-    
+
     if (mobile) {
       if (screenWidth <= 360) {
-        // Small phones - widget overlay style
         return {
           bubble: { size: 50, bottom: 15, right: 15 },
           iframe: { width: Math.floor(screenWidth * 0.95), height: Math.floor(screenHeight * 0.85), bottom: Math.floor(screenHeight * 0.075), right: Math.floor(screenWidth * 0.025) }
         };
       } else if (screenWidth <= 480) {
-        // Standard mobile - widget overlay style
         return {
           bubble: { size: 55, bottom: 18, right: 18 },
           iframe: { width: Math.floor(screenWidth * 0.90), height: Math.floor(screenHeight * 0.80), bottom: Math.floor(screenHeight * 0.10), right: Math.floor(screenWidth * 0.05) }
         };
       } else {
-        // Large mobile/small tablet - widget overlay style (consistent bottom-right positioning)
         const width = Math.min(420, Math.floor(screenWidth * 0.85));
         const height = Math.floor(screenHeight * 0.75);
-        const rightMargin = Math.floor(screenWidth * 0.075); // 7.5% margin from right
+        const rightMargin = Math.floor(screenWidth * 0.075);
         return {
           bubble: { size: 60, bottom: 20, right: 20 },
           iframe: { width, height, bottom: Math.floor(screenHeight * 0.125), right: rightMargin }
         };
       }
     } else {
-      // Desktop
       return {
         bubble: { size: 60, bottom: 20, right: 20 },
         iframe: { width: 350, height: 500, bottom: 90, right: 20 }
@@ -45,13 +41,13 @@
     }
   }
 
-  // Create responsive bubble
+  // Create bubble button
   const bubble = document.createElement("div");
   bubble.innerText = "💬";
   bubble.setAttribute('aria-label', 'Open chat widget');
   bubble.setAttribute('role', 'button');
   bubble.setAttribute('tabindex', '0');
-  
+
   function updateBubbleStyles() {
     const dims = getResponsiveDimensions();
     bubble.style.cssText = `
@@ -65,15 +61,15 @@
       -webkit-tap-highlight-color: rgba(0,0,0,0.1);
     `;
   }
-  
   updateBubbleStyles();
   document.body.appendChild(bubble);
 
-  // Create responsive iframe
+  // Create iframe
   const iframe = document.createElement("iframe");
   iframe.src = IFRAME_URL;
   iframe.setAttribute('title', 'Luna Assistant Chat Widget');
-  
+  iframe.sandbox = "allow-scripts allow-forms allow-same-origin";
+
   function updateIframeStyles() {
     const dims = getResponsiveDimensions();
     const mobile = isMobile();
@@ -89,73 +85,46 @@
       transition: opacity 0.3s ease, transform 0.3s ease;
     `;
   }
-  
   updateIframeStyles();
-  iframe.sandbox = "allow-scripts allow-forms allow-same-origin";
-  // The iframe will self-identify as embedded via the ?embed=1 parameter
   document.body.appendChild(iframe);
 
-  // Enhanced interaction handlers
+  // Toggle widget
   function toggleWidget() {
     const isVisible = iframe.style.display !== "none";
     iframe.style.display = isVisible ? "none" : "block";
-    
-    // Add visual feedback
     bubble.style.transform = isVisible ? 'scale(1)' : 'scale(0.95)';
-    setTimeout(() => {
-      bubble.style.transform = 'scale(1)';
-    }, 150);
-    
-    // Notify iframe
+    setTimeout(() => bubble.style.transform = 'scale(1)', 150);
+
     if (!isVisible && iframe.contentWindow) {
-      iframe.contentWindow.postMessage(
-        { type: "open" },
-        new URL(IFRAME_URL).origin
-      );
+      iframe.contentWindow.postMessage({ type: "open" }, new URL(IFRAME_URL).origin);
     }
   }
 
-  // Click handler
   bubble.addEventListener("click", toggleWidget);
-  
-  // Keyboard handler for accessibility
-  bubble.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      toggleWidget();
-    }
+  bubble.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleWidget(); }
   });
 
-  // Handle resize events
+  // Resize handling
   let resizeTimeout;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      updateBubbleStyles();
-      updateIframeStyles();
-    }, 250);
+    resizeTimeout = setTimeout(() => { updateBubbleStyles(); updateIframeStyles(); }, 250);
   });
-
-  // Handle orientation change on mobile
   window.addEventListener("orientationchange", () => {
-    setTimeout(() => {
-      updateBubbleStyles();
-      updateIframeStyles();
-    }, 500);
+    setTimeout(() => { updateBubbleStyles(); updateIframeStyles(); }, 500);
   });
 
-  // Message handler
+  // Message listener
   window.addEventListener("message", (e) => {
     if (e.origin !== new URL(IFRAME_URL).origin) return;
     console.log("Widget host received:", e.data);
   });
 
-  // Close widget when clicking outside on mobile
+  // Close on outside click for mobile
   if (isMobile()) {
     document.addEventListener("touchstart", (e) => {
-      if (iframe.style.display !== "none" && 
-          !iframe.contains(e.target) && 
-          !bubble.contains(e.target)) {
+      if (iframe.style.display !== "none" && !iframe.contains(e.target) && !bubble.contains(e.target)) {
         iframe.style.display = "none";
       }
     });
